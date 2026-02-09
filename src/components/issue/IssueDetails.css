@@ -1,0 +1,177 @@
+/* Wrapper */
+.issue-section {
+  width: 100%;
+  margin-top: 30px;
+}
+
+/* Grid */
+.issue-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* Card */
+.issue-card {
+ position: relative;          /* 🔥 REQUIRED */
+
+  width: 600px;
+  height: 180px;
+
+  background: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+
+  padding: 16px 20px 44px;     /* 🔥 space for delete button */
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  cursor: pointer;
+}
+
+.issue-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+/* Title */
+.issueTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #e6edf3;
+  margin-bottom: 8px;
+}
+
+/* Description */
+.issueDescription {
+  font-size: 14px;
+  color: #9da7b3;
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+
+/* Delete Button */
+.delete-btn {
+  position: absolute;          /* 🔥 lock inside card */
+  bottom: 12px;
+  right: 12px;
+
+  background: #da3633;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 500;
+
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.delete-btn:hover {
+  background: #f85149;
+}
+
+.delete-btn:active {
+  transform: scale(0.95);
+}
+
+
+.repo-header {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.repo-name {
+  font-size: 28px;
+  font-weight: 700;
+  color: #e6edf3;
+  text-align: center;
+}
+
+
+.repo-description {
+  text-align: center;
+  font-size: 14px;
+  color: #9da7b3;
+  max-width: 600px;
+  margin: 8px auto 0;   /* center horizontally */
+  line-height: 1.4;
+}
+
+
+/* MODAL BACKDROP */
+.issue-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* MODAL BOX */
+.issue-modal-box {
+  background: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 10px;
+  padding: 24px;
+
+  width: 50%;
+  max-height: 70vh;          /* 🔥 limit height */
+  overflow-y: auto;          /* 🔥 vertical scroll */
+  overflow-x: hidden;        /* ❌ no horizontal scroll */
+}
+
+/* ISSUE TITLE */
+.issue-modal-box h2 {
+  margin-bottom: 12px;
+  color: #e6edf3;
+}
+
+/* ISSUE DESCRIPTION */
+.issue-modal-box pre {
+  white-space: pre-wrap;     /* 🔥 wrap text */
+  word-break: break-word;    /* 🔥 prevent overflow */
+
+  font-size: 14px;
+  color: #c9d1d9;
+  line-height: 1.6;
+
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+/* VERTICAL SCROLLBAR STYLE (optional but clean) */
+.issue-modal-box::-webkit-scrollbar {
+  width: 8px;
+}
+
+.issue-modal-box::-webkit-scrollbar-track {
+  background: #161b22;
+  border-radius: 6px;
+}
+
+.issue-modal-box::-webkit-scrollbar-thumb {
+  background: #30363d;
+  border-radius: 6px;
+}
+
+/* CLOSE BUTTON */
+.issue-modal-box button {
+  margin-top: 20px;
+  padding: 8px 16px;
+  background: #21262d;
+  color: #e6edf3;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.issue-modal-box button:hover {
+  background: #30363d;
+}
