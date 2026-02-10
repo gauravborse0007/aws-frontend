@@ -27,7 +27,7 @@ const Dashboard = () => {
     fetchUserRepos();
     fetchSuggestedRepos();
   }, []);
-  
+
 
   return (
     <>
@@ -54,7 +54,7 @@ const Dashboard = () => {
           <h2>Your Repositories</h2>
 
           <div className="repo-grid">
-            {repositories.map((repo) => (
+            {Array.isArray(repositories) && repositories.map((repo) => (
               <div className="repo-card" key={repo._id}>
                 <h4>{repo.repoName}</h4>
                 <p>{repo.description || "No description"}</p>

@@ -25,7 +25,7 @@ const Create = () => {
 
     try {
       const response = await axios.post(
-        `${API_URL}/repo/creat`,
+        `${API_URL}/repo/create`,
         {
           repoName,
           owner,

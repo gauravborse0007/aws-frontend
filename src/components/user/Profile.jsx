@@ -36,12 +36,23 @@ const Profile = () => {
     const fetchRepositories = async () => {
       try {
         const response = await fetch(`${API_URL}/repo/user/${userId}`);
+
+        if (!response.ok) {
+          console.error("Repo fetch failed with status:", response.status);
+          setRepositories([]);
+          return;
+        }
+
         const data = await response.json();
-        setRepositories(data);
+        console.log("Profile repo response:", data);
+
+        setRepositories(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error("Error fetching repositories", error);
+        setRepositories([]);
       }
     };
+
 
     fetchUserDeatils();
     fetchRepositories();
@@ -132,8 +143,8 @@ const Profile = () => {
           <h2>Your Repositories</h2>
 
           <div className="repo-card-wrapper">
-            {repositories.map((repo) => (
-              <div className="repo" key={repo.repoName}
+            {Array.isArray(repositories) && repositories.map((repo) => (
+              <div className="repo" key={repo._id}
                 onClick={() => navigate(`/repo/${repo._id}`)}>
                 <h4 className="repo-name">{repo.repoName}</h4>
                 <span>{repo.visibility ? "Public" : "Private"}</span>
@@ -144,8 +155,7 @@ const Profile = () => {
                 &nbsp;
                 <button
                   className="delete-btn"
-                  onClick={(e) =>{ e.stopPropagation(); handleDeleteRepo(repo._id)}}
-
+                  onClick={(e) => { e.stopPropagation(); handleDeleteRepo(repo._id) }}
                 >
                   Delete
                 </button>
