@@ -1,178 +1,10 @@
-// import React, { useEffect, useState } from "react";
-// import { useParams } from "react-router-dom";
-// import Navbar from "../Navbar";
-// import axios from "axios";
-
-
-// const IssueDetails = () => {
-//     const { repoId } = useParams();
-//     const [allIssues, setAllIssues] = useState([]);
-//     const [selectedIssue, setSelectedIssue] = useState(null);
-
-//     // useEffect(() => {
-//     //     const fetchAllIssues = async () => {
-//     //         const res = await fetch(
-//     //             `http://localhost:3000/repo/name/${name}`,
-//     //             {
-//     //                 headers: {
-//     //                     Authorization: `Bearer ${localStorage.getItem("token")}`,
-//     //                 },
-//     //             }
-//     //         );
-
-//     //         const data = await res.json();
-//     //         console.log("FULL RESPONSE:", data);
-
-//     //         // ✅ FIX IS HERE
-//     //         if (Array.isArray(data) && data.length > 0) {
-//     //             setAllIssues(data[0].issues || []);
-//     //         } else {
-//     //             setAllIssues([]);
-//     //         }
-//     //     };
-
-//     //     fetchAllIssues();
-//     // }, [name]);
-
-
-
-//     useEffect(() => {
-//         const fetchAllIssues = async () => {
-//             const res = await fetch(
-//                 `http://localhost:3000/issues/all/${repoId}`,
-//                 {
-//                     headers: {
-//                         Authorization: `Bearer ${localStorage.getItem("token")}`,
-//                     },
-//                 }
-//             );
-
-//             const data = await res.json();
-
-//             if (Array.isArray(data)) {
-//                 setAllIssues(data);
-//             } else {
-//                 setAllIssues([]); // safety
-//             }
-//         };
-
-//         fetchAllIssues();
-//     }, [repoId]);
-
-//     const handleDeleteRepo = async (issueId) => {
-//         const userId = localStorage.getItem("userId");
-
-//         const confirmDelete = window.confirm(
-//             "Are you sure want to delete this repo ?"
-//         );
-
-//         if (!confirmDelete) return;
-
-//         try {
-//             await axios.delete(`http://localhost:3000/issues/delete/${issueId}`, 
-//             {
-//                 headers: {
-//                     Authorization: `Bearer ${localStorage.getItem("token")}`,
-//                 },
-//             });
-
-//             setAllIssues((prev) =>
-//                 prev.filter((issue) => issue._id !== issueId)
-//             );
-
-//             alert("Repository deleted successfully");
-
-//         } catch (error) {
-//             console.error("Delete failed:", error);
-//             alert("Failed to delete repository");
-//         }
-//     };
-
-//     return (
-//         <>
-//             <Navbar />
-
-//             {/* <section className="suggested-section">
-//                 <h3>All Issues</h3>
-
-//                 <div className="issue-grid">
-//                     {allIssues.map((issue) => (
-//                         <div
-//                             className="issue-card"
-//                             key={issue._id}
-//                             onClick={() => setSelectedIssue(issue)}
-//                         >
-//                             <p className="issueTitle">{issue.title}</p>
-//                             <p className="issueDescription">{issue.description}</p>
-//                         </div>
-//                     ))}
-//                 </div>
-//             </section> */}
-
-
-//             <section className="suggested-section">
-//                 <h3>All Issues</h3>
-
-//                 <div className="issue-grid">
-//                     {allIssues.map((issue) => (
-//                         <div
-//                             className="issue-card"
-//                             key={issue._id}
-//                             onClick={() => setSelectedIssue(issue)}
-//                         >
-//                             <p className="issueTitle">{issue.title}</p>
-//                             <p className="issueDescription">{issue.description}</p>
-
-
-//                             &nbsp;
-//                             &nbsp;
-//                             <button
-//                                 className="delete-btn"
-//                                 onClick={(e) => { e.stopPropagation(); handleDeleteRepo(repo._id) }}
-
-//                             >
-//                                 Delete
-//                             </button>
-//                         </div>
-//                     ))}
-//                 </div>
-//             </section>
-
-
-//             {selectedIssue && (
-//                 <div className="issue-modal" onClick={() => setSelectedIssue(null)}>
-//                     <div
-//                         className="issue-modal-box"
-//                         onClick={(e) => e.stopPropagation()}
-//                     >
-//                         <h2>{selectedIssue.title}</h2>
-
-//                         <pre className="issue-modal-description">
-//                             {selectedIssue.description}
-//                         </pre>
-
-//                         <button onClick={() => setSelectedIssue(null)}>Close</button>
-//                     </div>
-//                 </div>
-//             )}
-
-//         </>
-
-//     )
-
-// }
-
-
-// export default IssueDetails;
-
-
-
-
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../Navbar";
 import "./IssueDetails.css";
+const API_URL = import.meta.env.VITE_API_URL;
+
 
 const IssueDetails = () => {
   const { repoId } = useParams();
@@ -184,7 +16,7 @@ const IssueDetails = () => {
   useEffect(() => {
     const fetchRepo = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/repo/${repoId}`);
+        const res = await axios.get(`${API_URL}/repo/${repoId}`);
         setRepo(res.data); // API returns array
         console.log(res.data.repoName);
         console.log(res.data.description);
@@ -200,7 +32,7 @@ const IssueDetails = () => {
   useEffect(() => {
     const fetchAllIssues = async () => {
       const res = await fetch(
-        `http://localhost:3000/issues/all/${repoId}`,
+        `${API_URL}/issues/all/${repoId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -225,7 +57,7 @@ const IssueDetails = () => {
 
     try {
       await axios.delete(
-        `http://localhost:3000/deleteIssue/${issueId}`,
+        `${API_URL}/deleteIssue/${issueId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

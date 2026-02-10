@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate, Link, useParams } from "react-router-dom";
-
+const API_URL = import.meta.env.VITE_API_URL;
 
 const createIssue = () => {
 
@@ -26,7 +26,7 @@ const createIssue = () => {
 
         try {
             const response = await axios.post(
-                `http://localhost:3000/issue/create/${repoId}`,
+                `${API_URL}/issue/create/${repoId}`,
                 {
                     description,
                     title

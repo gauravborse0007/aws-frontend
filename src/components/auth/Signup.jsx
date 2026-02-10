@@ -9,6 +9,7 @@ import "./auth.css";
 
 import logo from "../../assets/github-mark-white.svg";
 import { Link } from "react-router-dom";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -26,7 +27,7 @@ const Signup = () => {
       // Axios is a JavaScript library used to send HTTP requests from your frontend (React) to your backend (API).
       // Send login / signup data, Fetch data from backend, Send tokens (JWT)
       // Send GET, POST, PUT, DELETE requests , Automatically convert JSON
-      const res = await axios.post("http://localhost:3000/signup", {  
+      const res = await axios.post(`${API_URL}/signup`, {  
         email: email,
         password: password,
         username: username,

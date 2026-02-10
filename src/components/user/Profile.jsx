@@ -6,6 +6,7 @@ import Navbar from "../Navbar";
 import { UnderlineNav } from "@primer/react";
 import { BookIcon, RepoIcon } from "@primer/octicons-react";
 import { useAuth } from "../../authContext";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const Profile = () => {
   const navigate = useNavigate(); //we are using the "useNavigate" hook for to switch between overview and starred repository
@@ -23,7 +24,7 @@ const Profile = () => {
     const fetchUserDeatils = async () => {
       if (userId) {
         try {
-          const response = await axios.get(`http://localhost:3000/userProfile/${userId}`);
+          const response = await axios.get(`${API_URL}/userProfile/${userId}`);
           setUserDetails(response.data);
         } catch (error) {
           console.log("Cannot fetch detail: ", error);
@@ -34,7 +35,7 @@ const Profile = () => {
 
     const fetchRepositories = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/repo/user/${userId}`);
+        const response = await fetch(`${API_URL}/repo/user/${userId}`);
         const data = await response.json();
         setRepositories(data);
       } catch (error) {
@@ -46,23 +47,6 @@ const Profile = () => {
     fetchRepositories();
   }, []);
 
-  // useEffect(() => {
-  //   const fetchAllIssues = async () => {
-  //     const res = await fetch(
-  //       `http://localhost:3000/repo/name/${name}`
-  //     );
-
-  //     const data = await res.json();
-
-  //     if (Array.isArray(data)) {
-  //       setAllIssues(data);
-  //     } else {
-  //       setAllIssues([]); // safety
-  //     }
-  //   };
-
-  //   fetchAllIssues();
-  // }, [name]);
 
   const handleDeleteRepo = async (repoId) => {
     const userId = localStorage.getItem("userId");
@@ -74,7 +58,7 @@ const Profile = () => {
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`http://localhost:3000/repo/delete/${repoId}`, {
+      await axios.delete(`${API_URL}/repo/delete/${repoId}`, {
         data: { userId },
       });
 

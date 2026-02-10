@@ -3,6 +3,7 @@ import axios from "axios";
 import { useAuth } from "../../authContext";
 import { Button } from "@primer/react";
 import "./auth.css";
+const API_URL = import.meta.env.VITE_API_URL;
 
 import logo from "../../assets/github-mark-white.svg";
 import { Link, useActionData } from "react-router-dom"; 
@@ -25,7 +26,7 @@ const Login = () => {
 
     try { 
       setLoading(true);
-      const res = await axios.post("http://localhost:3000/login", {
+      const res = await axios.post(`${API_URL}/login`, {
         email: email,
         password: password,
       });

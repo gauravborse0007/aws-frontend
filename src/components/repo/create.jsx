@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {Link} from "react-router-dom";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const Create = () => {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const Create = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/repo/create",
+        `${API_URL}/repo/creat`,
         {
           repoName,
           owner,

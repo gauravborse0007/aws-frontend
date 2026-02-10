@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import "./RepoDetail.css";
 import Navbar from "../Navbar";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const RepoDetail = () => {
   const { repoName } = useParams();
@@ -19,7 +20,7 @@ const RepoDetail = () => {
   useEffect(() => {
     const fetchRepo = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/repo/name/${repoName}`);
+        const res = await axios.get(`${API_URL}/repo/name/${repoName}`);
         setRepo(res.data[0]); // API returns array
       } catch (error) {
         console.error("Failed to load repo", error);
@@ -29,38 +30,13 @@ const RepoDetail = () => {
     fetchRepo();
   }, [repoName]);
 
-  // fetch issues of this repo
-  // useEffect(() => {
-  //   const fetchAllIssues = async () => {
-  //     const res = await fetch(
-  //       `http://localhost:3000/issues/all/${repoId}`,
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //         },
-  //       }
-  //     );
-
-  //     const data = await res.json();
-
-  //     if (Array.isArray(data)) {
-  //       setAllIssues(data);
-  //     } else {
-  //       setAllIssues([]); // safety
-  //     }
-  //   };
-
-  //   fetchAllIssues();
-  // }, [repoId]);
-
-
 
   useEffect(() => {
     if (!repo?._id) return;
 
     const fetchAllIssues = async () => {
       const res = await fetch(
-        `http://localhost:3000/issues/all/${repo._id}`
+        `${API_URL}/issues/all/${repo._id}`
       );
 
       const data = await res.json();
